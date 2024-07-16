@@ -99,7 +99,7 @@ public class JpashopTest {
     @Test
     @DisplayName("회원목록 검색 후 나이의 내림차순 정렬")
     public void memberSearch2() {
-        List<Member> memberList = memberRepository.findAllAndOrderByAgeDesc();
+        List<Member> memberList = memberRepository.findAllByOrderByAgeDesc();
         for (Member member : memberList) {
             System.out.print(member.getMembernum() + " / ");
             System.out.print(member.getMemberid() + " / ");
@@ -107,6 +107,38 @@ public class JpashopTest {
             System.out.println(member.getAge() + " / ");
         }
 
+    }
+    
+    @Test
+    @DisplayName("회원 정보 수정")
+    public void modifyMember() { //회원 정보 수정
+        Optional<Member> memberOptional = memberRepository.findById(2L);//김사자 2번 회원 찾기
+
+        assertTrue(memberOptional.isPresent());//null 값 여부 확인(테스트용)
+
+        Member member = memberOptional.get();
+        member.setMembername("김유신");//이름 수정
+        
+        Member savedMember = memberRepository.save(member);
+
+        System.out.println(savedMember.toString());
+        
+    }
+
+    @Test
+    @DisplayName("회원 번호로 검색 삭제")
+    public void deleteMember() {
+        allMemberList();
+        memberRepository.deleteById(4L);
+        allMemberList();
+    }
+
+    @Test
+    @DisplayName("회원 이름으로 검색 삭제")
+    public void deleteMember2() {
+        allMemberList();
+        memberRepository.deleteAllByMembername("김고양");
+        allMemberList();
     }
 
 }
