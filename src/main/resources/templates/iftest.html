@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>if연습</title>
+</head>
+<body>
+    <div th:if="${member.age > 19}" th:text="${temp}">성년</div>
+    <div th:unless="${member.age < 19}" th:text="${temp}">미성년</div>
+</body>
+</html>
